@@ -1,0 +1,16 @@
+version: "3"
+services:
+    orientdb:
+        image: orientdb:3.0.32
+        container_name: orientdb
+        tty: true
+        stdin_open: true
+        # workaround for WAL exceptions: https://github.com/orientechnologies/orientdb/issues/8431#issuecomment-432660528
+        command: /orientdb/bin/server.sh -Dstorage.wal.allowDirectIO=false
+        volumes:
+            - ${HOME}/Documents/INFO408/orientdb/databases:/orientdb/databases
+        ports:
+            - "2424:2424"
+            - "2480:2480"
+        environment:
+            ORIENTDB_ROOT_PASSWORD: "root"
